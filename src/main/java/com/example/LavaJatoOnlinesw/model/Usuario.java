@@ -7,6 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+@Table (name = "usuario")
 public class Usuario {
     private String username;
     private String password;

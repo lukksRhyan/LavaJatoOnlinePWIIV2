@@ -1,17 +1,13 @@
 package com.example.LavaJatoOnlinesw.model;
 
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import jakarta.persistence.Id;
-
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 
 @Getter
 @Setter
 @Entity
+@Table(name = "cliente")
 public class Cliente {
 
 	private String nome;

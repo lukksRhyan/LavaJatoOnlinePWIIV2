@@ -2,17 +2,14 @@ package com.example.LavaJatoOnlinesw.model;
 
 import java.time.LocalDateTime;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
 @Entity
+@Table (name = "agendamento")
 public class Agendamento {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

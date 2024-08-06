@@ -12,6 +12,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
+@Table (name = "carro")
 public class Carro {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
