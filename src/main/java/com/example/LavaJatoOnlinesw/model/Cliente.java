@@ -14,13 +14,13 @@ import jakarta.persistence.GenerationType;
 @Entity
 public class Cliente {
 
-	private @Setter @Getter String nome;
-	private @Setter @Getter String telefone;
-	private @Setter @Getter String email;
+	private String nome;
+	private String telefone;
+	private String email;
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private @Setter @Getter Long Id;
+	private Long Id;
 
 
 

@@ -15,9 +15,9 @@ public class Servico {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private @Setter @Getter Long Id;
-    private @Setter @Getter String nome ;
-    private @Setter @Getter double preco;
+    private Long Id;
+    private String nome ;
+    private double preco;
 	public Servico(Long id, String nome, double preco) {
 		super();
 		this.Id = id;
