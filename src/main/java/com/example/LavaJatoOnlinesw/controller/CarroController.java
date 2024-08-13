@@ -36,12 +36,13 @@ public class CarroController {
     // Criar um novo carro
     @PostMapping
     public Carro createCarro(@RequestBody Carro carro) {
+        System.out.println(carro);
         return carroRepository.save(carro);
     }
 
     // Atualizar um carro existente
     @PutMapping("/{id}")
-    public ResponseEntity<Carro> updateCarro(@PathVariable Long id, @RequestBody Carro carroDetails) {
+    public ResponseEntity<Carro> updateCarro(@PathVariable Long id, Carro carroDetails) {
         Optional<Carro> carro = carroRepository.findById(id);
         if (carro.isPresent()) {
             Carro updatedCarro = carro.get();
