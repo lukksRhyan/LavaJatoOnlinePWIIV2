@@ -6,5 +6,25 @@
 <body>
     <h1>Bem-vindo ao meu site!</h1>
     <p>Esta é a minha primeira página com Spring Boot e Thymeleaf.</p>
+    <h1>Cadastro de Carro</h1>
+    <form action="/carros" method="post">
+        <label for="placa">Placa:</label>
+        <input type="text" id="placa" name="placa" required>
+        <br><br>
+
+        <label for="modelo">Modelo:</label>
+        <input type="text" id="modelo" name="modelo" required>
+        <br><br>
+
+        <label for="cor">Cor:</label>
+        <input type="text" id="cor" name="cor" required>
+        <br><br>
+
+        <label for="proprietario">Proprietário:</label>
+       <input type="text" id="proprietario" name="proprietario">
+        <br><br>
+
+        <button type="submit">Salvar</button>
+    </form>
 </body>
 </html>

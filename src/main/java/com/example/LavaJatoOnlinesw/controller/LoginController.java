@@ -8,6 +8,6 @@ public class LoginController {
 
     @GetMapping("/login")
     public String index() {
-        return "login.html"; // Retorna o nome do template (index.html) sem a extensão
+        return "index.html"; // Retorna o nome do template (index.html) sem a extensão
     }
 }
