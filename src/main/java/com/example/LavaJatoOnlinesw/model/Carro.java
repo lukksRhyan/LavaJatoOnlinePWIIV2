@@ -25,6 +25,14 @@ public class Carro {
 	@ManyToOne
 	private Cliente proprietario;
 
+	public Carro(){}
+	public Carro(String placa, String modelo, String cor) {
+		super();
+		this.placa = placa;
+		this.modelo = modelo;
+		this.cor = cor;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;

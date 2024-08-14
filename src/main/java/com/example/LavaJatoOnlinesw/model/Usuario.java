@@ -16,7 +16,7 @@ public class Usuario {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long Id;
 
-	public Usuario(Long id, String username, String password, String role) {
+	public Usuario(String username, String password, String role) {
 		super();
         this.username = username;
 		this.password = password;

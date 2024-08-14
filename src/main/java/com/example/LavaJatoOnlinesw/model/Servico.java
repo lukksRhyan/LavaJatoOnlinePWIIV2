@@ -13,12 +13,11 @@ public class Servico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
-    private String nome ;
+    private String descricao ;
     private double preco;
-	public Servico(Long id, String nome, double preco) {
+	public Servico(String descricao, double preco) {
 		super();
-		this.Id = id;
-		this.nome = nome;
+		this.descricao = descricao;
 		this.preco = preco;
 	}
 

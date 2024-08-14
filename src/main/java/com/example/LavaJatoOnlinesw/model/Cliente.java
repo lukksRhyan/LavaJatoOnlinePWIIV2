@@ -20,9 +20,8 @@ public class Cliente {
 
 
 
-	public Cliente(Long id, String nome, String telefone, String email) {
+	public Cliente(String nome, String telefone, String email) {
 		super();
-		this.Id = id;
 		this.nome = nome;
 		this.telefone = telefone;
 		this.email = email;

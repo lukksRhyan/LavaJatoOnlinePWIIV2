@@ -23,9 +23,11 @@ public class ClienteController {
 
     //teste commit
     @PostMapping
-    public Cliente createCliente(@RequestBody Cliente cliente) {
-        System.out.println(cliente);
-        return clienteRepository.save(cliente);
+    public Cliente createCliente(  @RequestParam("nome") String nome,
+                                   @RequestParam("email") String email,
+                                   @RequestParam("telefone") String telefone) {
+
+        return clienteRepository.save(new Cliente(nome,telefone,email));
     }
 
     @GetMapping("/{id}")
@@ -33,7 +35,7 @@ public class ClienteController {
         return clienteRepository.findById(id).orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
     }
 
-    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{id}")
     public Cliente updateCliente(@PathVariable Long id, @RequestBody Cliente clienteDetails) {
         Cliente cliente = clienteRepository.findById(id).orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
         cliente.setNome(clienteDetails.getNome());

@@ -6,6 +6,7 @@
 <body>
     <h1>Bem-vindo ao meu site!</h1>
     <p>Esta é a minha primeira página com Spring Boot e Thymeleaf.</p>
+
     <h1>Cadastro de Cliente</h1>
     <form action="/clientes" method="post" accept-charset="UTF-8">
         <label for="Nome">nome:</label>
@@ -13,7 +14,7 @@
         <br><br>
 
         <label for="telefone">Telefone:</label>
-        <input type="text" id="telefone" name="modelo" required>
+        <input type="text" id="telefone" name="telefone" required>
         <br><br>
 
         <label for="email">Email:</label>
@@ -22,5 +23,21 @@
 
         <button type="submit">Salvar</button>
     </form>
+
+    <h1>Formulário de Veículo</h1>
+    <form action="/enviarVeiculo" method="post">
+        <label for="placa">Placa:</label>
+        <input type="text" id="placa" name="placa" required><br><br>
+
+        <label for="modelo">Modelo:</label>
+        <input type="text" id="modelo" name="modelo" required><br><br>
+
+        <label for="cor">Cor:</label>
+        <input type="text" id="cor" name="cor" required><br><br>
+
+        <input type="submit" value="Enviar">
+    </form>
+
+
 </body>
 </html>

@@ -20,8 +20,9 @@ public class ServicoController {
     }
 
     @PostMapping
-    public Servico createServico(@RequestBody Servico servico) {
-        return servicoRepository.save(servico);
+    public Servico createServico(@RequestParam String descricao, @RequestParam Double preco) {
+
+        return servicoRepository.save(new Servico());
     }
 
     @GetMapping("/{id}")

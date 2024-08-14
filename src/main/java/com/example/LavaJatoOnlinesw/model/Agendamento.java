@@ -24,12 +24,12 @@ public class Agendamento {
 
     
     
-	public Agendamento(Long id, LocalDateTime dataHora, Cliente cliente, Servico servico) {
+	public Agendamento(Long id, LocalDateTime dataHora, /*trocar por id*/ Cliente cliente, /*trocar por id*/ Servico servico) {
 		super();
 		this.Id = id;
 		this.dataHora = dataHora;
-		this.cliente = cliente;
-		this.servico = servico;
+		this.cliente = cliente;/*trocar por id*/
+		this.servico = servico;/*trocar por id*/
 	}
 
 	public Agendamento() {

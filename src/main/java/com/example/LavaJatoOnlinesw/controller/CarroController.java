@@ -35,9 +35,10 @@ public class CarroController {
 
     // Criar um novo carro
     @PostMapping
-    public Carro createCarro(@RequestBody Carro carro) {
-        System.out.println(carro);
-        return carroRepository.save(carro);
+    public Carro createCarro(@RequestParam String placa,
+                             @RequestParam String modelo,
+                             @RequestParam String cor) {
+        return carroRepository.save(new Carro(placa,modelo,cor));
     }
 
     // Atualizar um carro existente
