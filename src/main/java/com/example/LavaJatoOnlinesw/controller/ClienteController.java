@@ -21,6 +21,7 @@ public class ClienteController {
         return clienteRepository.findAll();
     }
 
+    //teste commit
     @PostMapping
     public Cliente createCliente(@RequestBody Cliente cliente) {
         System.out.println(cliente);
