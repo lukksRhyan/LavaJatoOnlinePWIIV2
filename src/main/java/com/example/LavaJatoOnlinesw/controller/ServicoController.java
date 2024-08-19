@@ -33,7 +33,7 @@ public class ServicoController {
     @PutMapping("/{id}")
     public Servico updateServico(@PathVariable Long id, @RequestBody Servico servicoDetails) {
         Servico servico = servicoRepository.findById(id).orElseThrow(() -> new RuntimeException("Serviço não encontrado"));
-        servico.setNome(servicoDetails.getNome());
+        servico.setDescricao(servicoDetails.getDescricao());
         servico.setPreco(servicoDetails.getPreco());
         return servicoRepository.save(servico);
     }

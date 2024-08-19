@@ -9,18 +9,18 @@ import lombok.Setter;
 @Entity
 @Table (name = "usuario")
 public class Usuario {
+	@Id
     private String username;
-    private String password;
-    private String role;
-    @Id
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
-    private Long Id;
 
-	public Usuario(String username, String password, String role) {
+	private String password;
+
+
+
+	public Usuario(String username, String password) {
 		super();
         this.username = username;
 		this.password = password;
-		this.role = role;
+
 	}
 
 	public Usuario() {
