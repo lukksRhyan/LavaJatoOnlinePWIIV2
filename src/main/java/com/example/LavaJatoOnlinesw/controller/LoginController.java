@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
+
 @Controller
 public class LoginController {
 
@@ -21,17 +24,34 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam String nomeUsuario, @RequestParam String senha){
-       if(usuarioRepository.findByUsername(nomeUsuario).getPassword() == senha){
-           return "index.html";
+    public String login(@RequestParam String nomeUsuario, @RequestParam String senha, HttpServletResponse response){
+        Usuario usuario = usuarioRepository.findByUsername(nomeUsuario);
+
+        if(usuario.getPassword().equals(senha)){
+            Cookie cookie = new Cookie("usuarioLogado", nomeUsuario);
+            cookie.setMaxAge(7 * 24 * 60 * 60);
+            cookie.setHttpOnly(true);
+            cookie.setPath("/");
+            response.addCookie(cookie);
+            return "index.html";
        }
        return "login.html";
     }
     @PostMapping("/signup")
-    public String signup(@RequestParam String nomeUsuario, @RequestParam String senha){
-      if(usuarioRepository.findByUsername(nomeUsuario) != null){
-          Usuario usuario = new Usuario(nomeUsuario,senha);
-          usuarioRepository.save(usuario);
+    public String signup(@RequestParam String nomeUsuario, @RequestParam String senha, HttpServletResponse response){
+        if(usuarioRepository.findByUsername(nomeUsuario) == null){
+
+            Usuario usuario = new Usuario(nomeUsuario,senha);
+            usuarioRepository.save(usuario);
+
+            Cookie cookie = new Cookie("usuarioLogado", nomeUsuario);
+            cookie.setMaxAge(7 * 24 * 60 * 60);
+            cookie.setHttpOnly(true);
+            cookie.setPath("/");
+
+            response.addCookie(cookie);
+
+
       }
 
       //TODO: Salvar nos cookies
