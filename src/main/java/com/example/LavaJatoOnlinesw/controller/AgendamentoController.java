@@ -2,6 +2,8 @@ package com.example.LavaJatoOnlinesw.controller;
 
 import com.example.LavaJatoOnlinesw.model.Agendamento;
 import com.example.LavaJatoOnlinesw.repository.AgendamentoRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.Cookie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +24,22 @@ public class AgendamentoController {
     @PostMapping
     public Agendamento createAgendamento(@RequestBody Agendamento agendamento) {
         return agendamentoRepository.save(agendamento);
+    }
+
+    @GetMapping("/novo")
+    public String newAgendamento(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        String usuarioLogado = null;
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("usuarioLogado")) {
+                    usuarioLogado = cookie.getValue();
+                    return "agendamento.html";
+                }
+            }
+        }
+        return "login";
     }
 
     @GetMapping("/{id}")
