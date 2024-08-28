@@ -16,8 +16,9 @@ public class Agendamento {
     private Long Id;
     private LocalDateTime dataHora;
 
-    @ManyToOne
-    private Cliente cliente;
+	@ManyToOne
+	@JoinColumn(name = "cliente_id")
+	private Cliente cliente;
 
     @ManyToOne
     private Servico servico;
@@ -35,8 +36,4 @@ public class Agendamento {
 	public Agendamento() {
 
 	}
-
-
-    // Getters and Setters
-    
 }

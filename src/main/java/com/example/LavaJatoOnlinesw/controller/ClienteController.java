@@ -2,9 +2,10 @@ package com.example.LavaJatoOnlinesw.controller;
 
 import com.example.LavaJatoOnlinesw.model.Cliente;
 import com.example.LavaJatoOnlinesw.repository.ClienteRepository;
+import com.example.LavaJatoOnlinesw.model.Carro;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,8 +32,12 @@ public class ClienteController {
     }
 
     @GetMapping("/{id}")
-    public Cliente getClienteById(@PathVariable Long id) {
-        return clienteRepository.findById(id).orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+    public Cliente getClienteById(@PathVariable Long id, Model model) {
+        Cliente cliente = clienteRepository.findById(id).
+                orElseThrow(()-> new RuntimeException("Cliente não encontrado"));
+        model.addAttribute("cliente",cliente);
+        model.addAttribute("novoveiculo",new Carro());
+        return "cliente.html";
     }
 
     @PutMapping(value = "/{id}")

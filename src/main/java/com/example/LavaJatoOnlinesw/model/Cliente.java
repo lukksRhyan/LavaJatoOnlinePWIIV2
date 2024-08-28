@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -13,6 +15,9 @@ public class Cliente {
 	private String nome;
 	private String telefone;
 	private String email;
+
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Agendamento> agendamentos;
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

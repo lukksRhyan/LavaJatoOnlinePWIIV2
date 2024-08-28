@@ -1,6 +1,7 @@
 package com.example.LavaJatoOnlinesw.controller;
 
 import com.example.LavaJatoOnlinesw.model.Agendamento;
+import com.example.LavaJatoOnlinesw.model.Cliente;
 import com.example.LavaJatoOnlinesw.repository.AgendamentoRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.Cookie;
@@ -24,6 +25,10 @@ public class AgendamentoController {
     @PostMapping
     public Agendamento createAgendamento(@RequestBody Agendamento agendamento) {
         return agendamentoRepository.save(agendamento);
+    }
+
+    public List<Agendamento> getAllByCliente(Cliente cliente) {
+        return agendamentoRepository.findAllByCliente(cliente);
     }
 
     @GetMapping("/novo")

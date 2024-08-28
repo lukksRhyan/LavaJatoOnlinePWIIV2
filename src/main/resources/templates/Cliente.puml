@@ -25,6 +25,6 @@ abstract class Servico
 
 Cliente <- Carro
 Agendamento <- Servico
-Carro <- Agendamento
+Agendamento <- Carro
 
 @enduml

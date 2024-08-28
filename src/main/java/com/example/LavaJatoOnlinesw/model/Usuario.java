@@ -14,20 +14,13 @@ public class Usuario {
 
 	private String password;
 
-
-
 	public Usuario(String username, String password) {
 		super();
         this.username = username;
 		this.password = password;
 
 	}
-
 	public Usuario() {
 
 	}
-
-
-	// Getters and Setters
-    
 }
