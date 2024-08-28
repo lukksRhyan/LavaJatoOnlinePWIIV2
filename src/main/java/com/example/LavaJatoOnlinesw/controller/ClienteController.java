@@ -32,7 +32,7 @@ public class ClienteController {
     }
 
     @GetMapping("/{id}")
-    public Cliente getClienteById(@PathVariable Long id, Model model) {
+    public String getClienteById(@PathVariable Long id, Model model) {
         Cliente cliente = clienteRepository.findById(id).
                 orElseThrow(()-> new RuntimeException("Cliente não encontrado"));
         model.addAttribute("cliente",cliente);
