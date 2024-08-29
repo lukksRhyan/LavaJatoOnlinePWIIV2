@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html >
+<html  xmlns:th="http://thymeleaf.org" >
 <head>
     <title>Minha Primeira Página</title>
 </head>
 <body>
 
 
-    <h1>Bem-vindo ao meu site!</h1>
+    <h1>Bem-vindo, #{usuarioLogado.nome} "</h1>
     <p>Esta é a minha primeira página com Spring Boot e Thymeleaf.</p>
 
     <!-- TODO:Listar Clientes-->
