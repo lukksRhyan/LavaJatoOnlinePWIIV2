@@ -18,9 +18,11 @@ public class ClienteController {
     private ClienteRepository clienteRepository;
 
     @GetMapping
-    public List<Cliente> getAllClientes() {
+    public static List<Cliente> getAllClientes() {
         return clienteRepository.findAll();
     }
+
+
 
     //teste commit
     @PostMapping
