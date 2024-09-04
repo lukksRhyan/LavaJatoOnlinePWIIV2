@@ -13,23 +13,25 @@
     <table>
         <thead>
         <tr>
-            <th>ID</th>
+
             <th>Nome</th>
             <th>Email</th>
             <th>Telefone</th>
+            <th>Página</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="cliente : ${clientes}">
 
-            <td th:text="${cliente.nome}"></td>
+            <td th:text="1+${cliente.nome}"></td>
             <td th:text="${cliente.email}"></td>
             <td th:text="${cliente.telefone}"></td>
-            <form action="clientes/${cliente.id}" method="get">
-                <input type="hidden" name="id" value="${cliente.id}">
-                <input type="submit" value="Pagina">
-                
-            </form>
+            <td>
+                <form th:action="@{clientes/{id}(id =${cliente.id})}" method="get">
+
+                    <input type="submit" value="Pagina">
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
@@ -68,6 +70,8 @@
         <input type="submit" value="Enviar">
     </form>
 
-
+    <form action="logout" method="post">
+        <input type="submit" value="Sair">
+    </form>
 </body>
 </html>

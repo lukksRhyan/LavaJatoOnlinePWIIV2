@@ -38,6 +38,7 @@ public class ClienteController {
         Cliente cliente = clienteRepository.findById(id).
                 orElseThrow(()-> new RuntimeException("Cliente não encontrado"));
         model.addAttribute("cliente",cliente);
+        //Todo:Carregar os carros do cliente
         model.addAttribute("novoveiculo",new Carro());
         return "cliente.html";
     }
