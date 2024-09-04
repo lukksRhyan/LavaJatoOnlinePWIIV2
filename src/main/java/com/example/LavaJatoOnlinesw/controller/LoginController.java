@@ -44,9 +44,7 @@ public class LoginController {
 
             model.addAttribute("usuarioLogado", nomeUsuario);
 
-            List<Cliente> clientes = clienteRepository.findAll();
-
-            model.addAttribute("clientes", clientes);
+            model.addAttribute("clientes", clienteRepository.findAll());
 
             return "index.html";
        }
@@ -54,10 +52,12 @@ public class LoginController {
        return "login.html";
     }
     @PostMapping("/signup")
-    public String signup(@RequestParam String nomeUsuario, @RequestParam String senha, HttpServletResponse response){
-        if(usuarioRepository.findByUsername(nomeUsuario) == null){
+    public String signup(@RequestParam String nomeUsuario, @RequestParam String senha, HttpServletResponse response, Model model){
+        Usuario usuario = usuarioRepository.findByUsername(nomeUsuario);
 
-            Usuario usuario = new Usuario(nomeUsuario,senha);
+        if(usuario == null){
+
+            usuario = new Usuario(nomeUsuario,senha);
             usuarioRepository.save(usuario);
 
             Cookie cookie = new Cookie("usuarioLogado", nomeUsuario);
@@ -65,12 +65,18 @@ public class LoginController {
             cookie.setHttpOnly(true);
             cookie.setPath("/");
 
+            model.addAttribute("usuarioLogado", nomeUsuario);
+
+            model.addAttribute("clientes", clienteRepository.findAll());
+
             response.addCookie(cookie);
 
+        }
+        if(usuario.getPassword().equals(senha)){
+            model.addAttribute("mensagem", "Usuario já cadastrado");
+            return "login.html";
+        }
 
-      }
-
-      //TODO: Salvar nos cookies
         return "index.html";
     }
 

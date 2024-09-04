@@ -25,7 +25,7 @@
             <td th:text="${cliente.nome}"></td>
             <td th:text="${cliente.email}"></td>
             <td th:text="${cliente.telefone}"></td>
-            <form action="clientes/{id}" method="get">
+            <form action="clientes/${cliente.id}" method="get">
                 <input type="hidden" name="id" value="${cliente.id}">
                 <input type="submit" value="Pagina">
                 
