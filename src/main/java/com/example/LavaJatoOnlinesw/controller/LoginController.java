@@ -60,18 +60,10 @@ public class LoginController {
             usuario = new Usuario(nomeUsuario,senha);
             usuarioRepository.save(usuario);
 
-            Cookie cookie = new Cookie("usuarioLogado", nomeUsuario);
-            cookie.setMaxAge(7 * 24 * 60 * 60);
-            cookie.setHttpOnly(true);
-            cookie.setPath("/");
-
-            model.addAttribute("usuarioLogado", nomeUsuario);
-
-            model.addAttribute("clientes", clienteRepository.findAll());
-
-            response.addCookie(cookie);
-
         }
+
+        salvarUsuarioCookie(nomeUsuario,model,response);
+
         if(usuario.getPassword().equals(senha)){
             model.addAttribute("mensagem", "Usuario já cadastrado");
             return "login.html";
@@ -79,5 +71,17 @@ public class LoginController {
 
         return "index.html";
     }
+    private void salvarUsuarioCookie(String nomeUsuario, Model model, HttpServletResponse response){
 
+        Cookie cookie = new Cookie("usuarioLogado", nomeUsuario);
+        cookie.setMaxAge(7 * 24 * 60 * 60);
+        cookie.setHttpOnly(true);
+        cookie.setPath("/");
+
+        model.addAttribute("usuarioLogado", nomeUsuario);
+
+        model.addAttribute("clientes", clienteRepository.findAll());
+
+        response.addCookie(cookie);
+    }
 }
