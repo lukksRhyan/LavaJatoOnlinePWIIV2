@@ -3,7 +3,6 @@ package com.example.LavaJatoOnlinesw.controller;
 import com.example.LavaJatoOnlinesw.model.Cliente;
 import com.example.LavaJatoOnlinesw.repository.CarroRepository;
 import com.example.LavaJatoOnlinesw.repository.ClienteRepository;
-import com.example.LavaJatoOnlinesw.model.Carro;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -36,13 +35,16 @@ public class ClienteController {
     }
 
     @GetMapping("/{id}")
-    public String consulta(@PathVariable Long id, Model model) {
-        Cliente cliente = clienteRepository.findById(id).
+    public Cliente getCliente(@PathVariable Long id, Model model) {
+        return clienteRepository.findById(id).
                 orElseThrow(()-> new RuntimeException("Cliente não encontrado"));
-        model.addAttribute("cliente",cliente);
+    }
 
-        //Todo:Carregar os carros do cliente
-        model.addAttribute("carros",carroRepository.findAll());
+    @PostMapping("/{id}")
+    public String paginaCliente(@PathVariable Long id, Model model) {
+        Cliente cliente = clienteRepository.findById(id).
+                orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+        model.addAttribute("cliente",cliente);
         return "cliente.html";
     }
 

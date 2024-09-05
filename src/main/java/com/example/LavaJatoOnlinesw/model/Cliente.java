@@ -19,8 +19,6 @@ public class Cliente {
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Agendamento> agendamentos;
 
-
-
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
