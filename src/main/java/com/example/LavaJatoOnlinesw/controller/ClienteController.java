@@ -1,6 +1,7 @@
 package com.example.LavaJatoOnlinesw.controller;
 
 import com.example.LavaJatoOnlinesw.model.Cliente;
+import com.example.LavaJatoOnlinesw.repository.CarroRepository;
 import com.example.LavaJatoOnlinesw.repository.ClienteRepository;
 import com.example.LavaJatoOnlinesw.model.Carro;
 
@@ -17,15 +18,16 @@ public class ClienteController {
     @Autowired
     private ClienteRepository clienteRepository;
 
+    @Autowired
+    private CarroRepository carroRepository;
+
     @GetMapping
     public List<Cliente> getAllClientes() {
         return clienteRepository.findAll();
     }
 
 
-
-    //teste commit
-    @PostMapping
+    @PostMapping("/novo")
     public Cliente createCliente(  @RequestParam("nome") String nome,
                                    @RequestParam("email") String email,
                                    @RequestParam("telefone") String telefone) {
@@ -34,12 +36,13 @@ public class ClienteController {
     }
 
     @GetMapping("/{id}")
-    public String getClienteById(@PathVariable Long id, Model model) {
+    public String consulta(@PathVariable Long id, Model model) {
         Cliente cliente = clienteRepository.findById(id).
                 orElseThrow(()-> new RuntimeException("Cliente não encontrado"));
         model.addAttribute("cliente",cliente);
+
         //Todo:Carregar os carros do cliente
-        model.addAttribute("novoveiculo",new Carro());
+        model.addAttribute("carros",carroRepository.findAll());
         return "cliente.html";
     }
 

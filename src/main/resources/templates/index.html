@@ -23,7 +23,7 @@
         <tbody>
         <tr th:each="cliente : ${clientes}">
 
-            <td th:text="1+${cliente.nome}"></td>
+            <td th:text="${cliente.nome}"></td>
             <td th:text="${cliente.email}"></td>
             <td th:text="${cliente.telefone}"></td>
             <td>
@@ -38,7 +38,7 @@
 
     <!-- TODO:Listar Clientes-->
     <h1>Cadastro de Cliente</h1>
-    <form action="/login" method="post" accept-charset="UTF-8">
+    <form action="/clientes/novo" method="post" accept-charset="UTF-8">
         <label for="nome">nome:</label>
         <input type="text" id="nome" name="nome" required>
         <br><br>
