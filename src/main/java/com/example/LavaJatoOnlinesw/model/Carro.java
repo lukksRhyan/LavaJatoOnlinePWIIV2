@@ -26,11 +26,12 @@ public class Carro {
 	private Cliente proprietario;
 
 	public Carro(){}
-	public Carro(String placa, String modelo, String cor) {
+	public Carro(String placa, String modelo, String cor, Cliente proprietario) {
 		super();
 		this.placa = placa;
 		this.modelo = modelo;
 		this.cor = cor;
+		this.proprietario = proprietario;
 	}
 
 	@Override

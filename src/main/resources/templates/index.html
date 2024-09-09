@@ -55,9 +55,35 @@
     </form>
 
     <!--TODO: mover o cadastro de veiculo para a pagina do cliente-->
+    <form action="#" th:action="@{/agendamentos/novo}" method="post">
+        <label for="cliente">Cliente:</label>
+        <select id="cliente" name="cliente">
+            <option value="" disabled selected>Selecione um cliente</option>
+            <th:block th:each="cliente : ${clientes}">
+                <option th:value="${cliente.id}" th:text="${cliente.nome}"></option>
+            </th:block>
+        </select>
 
+        <label for="carro">Carro:</label>
+        <select id="carro" name="carro" disabled>
+            <option value="" disabled selected>Selecione um carro</option>
+        </select>
+
+        <!-- Outros campos para o formulário de agendamento -->
+
+        <button type="submit">Agendar</button>
+    </form>
     <h1>Formulário de Veículo</h1>
-    <form action="/enviarVeiculo" method="post">
+    <form action="/carros/novo" method="post">
+
+        <select id="cliente" name="cliente">
+            <option value="" disabled selected>Selecione um cliente</option>
+            <th:block th:each="cliente : ${clientes}">
+                <option th:value="${cliente.id}" th:text="${cliente.nome}"></option>
+            </th:block>
+        </select>
+
+
         <label for="placa">Placa:</label>
         <input type="text" id="placa" name="placa" required><br><br>
 
@@ -73,5 +99,28 @@
     <form action="logout" method="post">
         <input type="submit" value="Sair">
     </form>
+    <script>
+        $(document).ready(function() {
+            $('#cliente').change(function() {
+                var clienteId = $(this).val();
+                if (clienteId) {
+                    $.ajax({
+                        url: '/api/carros/' + clienteId,
+                        method: 'GET',
+                        success: function(data) {
+                            var $carroSelect = $('#carro');
+                            $carroSelect.empty().append('<option value="" disabled selected>Selecione um carro</option>');
+                            $.each(data, function(index, carro) {
+                                $carroSelect.append('<option value="' + carro.id + '">' + carro.modelo + '</option>');
+                            });
+                            $carroSelect.prop('disabled', false);
+                        }
+                    });
+                } else {
+                    $('#carro').empty().append('<option value="" disabled selected>Selecione um carro</option>').prop('disabled', true);
+                }
+            });
+        });
+    </script>
 </body>
 </html>

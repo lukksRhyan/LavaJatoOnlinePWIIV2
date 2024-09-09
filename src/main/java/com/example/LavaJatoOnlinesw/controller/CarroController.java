@@ -1,6 +1,7 @@
 package com.example.LavaJatoOnlinesw.controller;
 
 import com.example.LavaJatoOnlinesw.model.Carro;
+import com.example.LavaJatoOnlinesw.model.Cliente;
 import com.example.LavaJatoOnlinesw.repository.CarroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,11 +35,12 @@ public class CarroController {
     }
 
     // Criar um novo carro
-    @PostMapping
+    @PostMapping("/novo")
     public Carro createCarro(@RequestParam String placa,
                              @RequestParam String modelo,
-                             @RequestParam String cor) {
-        return carroRepository.save(new Carro(placa,modelo,cor));
+                             @RequestParam String cor,
+                             @RequestParam Cliente cliente) {
+        return carroRepository.save(new Carro(placa,modelo,cor,cliente));
     }
 
     // Atualizar um carro existente
