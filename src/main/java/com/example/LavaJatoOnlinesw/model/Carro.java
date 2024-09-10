@@ -1,9 +1,6 @@
 package com.example.LavaJatoOnlinesw.model;
 
-
-import  com.example.LavaJatoOnlinesw.model.Cliente;
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,8 +9,9 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
-@Table (name = "carro")
+@Table(name = "carro")
 public class Carro {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -23,11 +21,13 @@ public class Carro {
 	private String cor;
 
 	@ManyToOne
+	@JoinColumn(name = "proprietario_id") // Nome da coluna de chave estrangeira
 	private Cliente proprietario;
 
-	public Carro(){}
+	public Carro() {
+	}
+
 	public Carro(String placa, String modelo, String cor, Cliente proprietario) {
-		super();
 		this.placa = placa;
 		this.modelo = modelo;
 		this.cor = cor;
@@ -44,6 +44,6 @@ public class Carro {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, placa, modelo, cor, proprietario);
+		return Objects.hash(id);
 	}
 }

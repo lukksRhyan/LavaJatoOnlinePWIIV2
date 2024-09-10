@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -19,6 +20,9 @@ public class Cliente {
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Agendamento> agendamentos;
 
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Carro> carros;
+
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
@@ -30,10 +34,12 @@ public class Cliente {
 		this.nome = nome;
 		this.telefone = telefone;
 		this.email = email;
+		this.carros = new ArrayList<>();
+		this.agendamentos = new ArrayList<>();
 	}
 
 	public Cliente() {
-
+		this.agendamentos = new ArrayList<>();
 	}
 
 

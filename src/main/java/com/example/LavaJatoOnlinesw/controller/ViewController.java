@@ -1,6 +1,5 @@
 package com.example.LavaJatoOnlinesw.controller;
 
-import com.example.LavaJatoOnlinesw.model.Cliente;
 import com.example.LavaJatoOnlinesw.model.Usuario;
 
 import com.example.LavaJatoOnlinesw.repository.ClienteRepository;
@@ -16,10 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 
-import java.util.List;
-
 @Controller
-public class LoginController {
+public class ViewController {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -112,5 +109,9 @@ public class LoginController {
         }
         return  false;
     }
+
+    //Todo: Pagina Cliente
+
+    //Todo: Agendamento
 
 }

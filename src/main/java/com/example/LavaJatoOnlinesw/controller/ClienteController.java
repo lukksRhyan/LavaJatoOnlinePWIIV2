@@ -40,14 +40,6 @@ public class ClienteController {
                 orElseThrow(()-> new RuntimeException("Cliente não encontrado"));
     }
 
-    @PostMapping("/{id}")
-    public String paginaCliente(@PathVariable Long id, Model model) {
-        Cliente cliente = clienteRepository.findById(id).
-                orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
-        model.addAttribute("cliente",cliente);
-        return "cliente.html";
-    }
-
     @PutMapping(value = "/{id}")
     public Cliente updateCliente(@PathVariable Long id, @RequestBody Cliente clienteDetails) {
         Cliente cliente = clienteRepository.findById(id).orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
