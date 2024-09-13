@@ -22,29 +22,14 @@ public class AgendamentoController {
         return agendamentoRepository.findAll();
     }
 
-    @PostMapping
+    @PostMapping("/novo")
     public Agendamento createAgendamento(@RequestBody Agendamento agendamento) {
         return agendamentoRepository.save(agendamento);
     }
 
+    @GetMapping("/cliente/{clienteid}")
     public List<Agendamento> getAllByCliente(Cliente cliente) {
         return agendamentoRepository.findAllByCliente(cliente);
-    }
-
-    @GetMapping("/novo")
-    public String newAgendamento(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-        String usuarioLogado = null;
-
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("usuarioLogado")) {
-                    usuarioLogado = cookie.getValue();
-                    return "agendamento.html";
-                }
-            }
-        }
-        return "login";
     }
 
     @GetMapping("/{id}")

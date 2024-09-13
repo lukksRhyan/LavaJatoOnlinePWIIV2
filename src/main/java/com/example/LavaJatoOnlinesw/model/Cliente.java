@@ -20,8 +20,8 @@ public class Cliente {
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Agendamento> agendamentos;
 
-	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Carro> carros;
+	@OneToMany(mappedBy = "proprietarioId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Carro> carros = new ArrayList<>();
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

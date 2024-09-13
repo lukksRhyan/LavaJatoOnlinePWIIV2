@@ -18,7 +18,7 @@ public class CarroController {
     private CarroRepository carroRepository;
 
     // Listar todos os carros
-    @GetMapping
+    @GetMapping("/")
     public List<Carro> getAllCarros() {
         return carroRepository.findAll();
     }
@@ -33,13 +33,17 @@ public class CarroController {
             return ResponseEntity.notFound().build();
         }
     }
-
+    @GetMapping("/cliente/{clienteId}")
+    public List<Carro> getCarrosByClienteId(@PathVariable Long clienteId) {
+        return carroRepository.findAllByProprietarioId(clienteId);
+    }
     // Criar um novo carro
     @PostMapping("/novo")
     public Carro createCarro(@RequestParam String placa,
                              @RequestParam String modelo,
                              @RequestParam String cor,
                              @RequestParam Cliente cliente) {
+
         return carroRepository.save(new Carro(placa,modelo,cor,cliente));
     }
 
@@ -52,7 +56,7 @@ public class CarroController {
             updatedCarro.setPlaca(carroDetails.getPlaca());
             updatedCarro.setModelo(carroDetails.getModelo());
             updatedCarro.setCor(carroDetails.getCor());
-            updatedCarro.setProprietario(carroDetails.getProprietario());
+            updatedCarro.setProprietarioId(carroDetails.getProprietarioId());
             return ResponseEntity.ok(carroRepository.save(updatedCarro));
         } else {
             return ResponseEntity.notFound().build();

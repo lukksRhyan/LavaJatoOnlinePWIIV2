@@ -20,9 +20,8 @@ public class Carro {
 	private String modelo;
 	private String cor;
 
-	@ManyToOne
-	@JoinColumn(name = "proprietario_id") // Nome da coluna de chave estrangeira
-	private Cliente proprietario;
+	@Column(name = "proprietario_id")
+	private Long proprietarioId;
 
 	public Carro() {
 	}
@@ -31,7 +30,7 @@ public class Carro {
 		this.placa = placa;
 		this.modelo = modelo;
 		this.cor = cor;
-		this.proprietario = proprietario;
+		this.proprietarioId = proprietario.getId();
 	}
 
 	@Override

@@ -13,11 +13,9 @@
     <table>
         <thead>
         <tr>
-
             <th>Nome</th>
             <th>Email</th>
             <th>Telefone</th>
-            <th>Página</th>
         </tr>
         </thead>
         <tbody>
@@ -26,12 +24,7 @@
             <td th:text="${cliente.nome}"></td>
             <td th:text="${cliente.email}"></td>
             <td th:text="${cliente.telefone}"></td>
-            <td>
-                <form th:action="@{clientes/{id}(id =${cliente.id})}" method="get">
 
-                    <input type="submit" value="Pagina">
-                </form>
-            </td>
         </tr>
         </tbody>
     </table>
@@ -55,6 +48,7 @@
     </form>
 
     <!--TODO: mover o cadastro de veiculo para a pagina do cliente-->
+    <h1>Formulario de agendamentos</h1>
     <form action="#" th:action="@{/agendamentos/novo}" method="post">
         <label for="cliente">Cliente:</label>
         <select id="cliente" name="cliente">
@@ -69,15 +63,14 @@
             <option value="" disabled selected>Selecione um carro</option>
         </select>
 
-        <!-- Outros campos para o formulário de agendamento -->
-
         <button type="submit">Agendar</button>
     </form>
+
     <h1>Formulário de Veículo</h1>
     <form action="/carros/novo" method="post">
 
-        <select id="cliente" name="cliente">
-            <option value="" disabled selected>Selecione um cliente</option>
+        <select id="client" name="cliente">
+            <option value="" >Selecione um cliente</option>
             <th:block th:each="cliente : ${clientes}">
                 <option th:value="${cliente.id}" th:text="${cliente.nome}"></option>
             </th:block>
@@ -105,7 +98,7 @@
                 var clienteId = $(this).val();
                 if (clienteId) {
                     $.ajax({
-                        url: '/api/carros/' + clienteId,
+                        url: '/api/carros',
                         method: 'GET',
                         success: function(data) {
                             var $carroSelect = $('#carro');
