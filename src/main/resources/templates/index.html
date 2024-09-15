@@ -66,13 +66,15 @@
 
         <input type="datetime-local" name="datahora">
 
-        <label for="servicos">Serviços:</label>
-        <select id="servicos" name="servicos" multiple required>
-            <option value="" >Selecione os serviços</option>
+        <h3>Serviços Disponíveis</h3>
+        <div id="lista-servicos">
             <th:block th:each="servico : ${servicos}">
-                <option th:value="${servico.id}" th:text="${servico.descricao + ' - R$' + servico.preco}"></option>
+                <div>
+                    <input type="checkbox" id="servico_${servico.id}" name="servicos" th:value="${servico.id}">
+                    <label th:for="servico_${servico.id}" th:text="${servico.descricao}"></label>
+                </div>
             </th:block>
-        </select>
+        </div>
 
         <button type="submit">Agendar</button>
     </form>
@@ -141,6 +143,15 @@
                 } else {
                     $('#carro').empty().append('<option value="" disabled selected>Selecione um carro</option>').prop('disabled', true);
                 }
+            });
+            // Atualizar lista de serviços selecionados dinamicamente
+            $('#servicos').change(function() {
+                var selectedOptions = $(this).find('option:selected');
+                var $listaServicos = $('#lista-servicos-selecionados');
+                $listaServicos.empty(); // Limpar lista antes de adicionar novamente
+                selectedOptions.each(function() {
+                    $listaServicos.append('<li>' + $(this).text() + '</li>');
+                });
             });
         });
     </script>

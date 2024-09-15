@@ -14,7 +14,7 @@ public class ServicoController {
     @Autowired
     private ServicoRepository servicoRepository;
 
-    @GetMapping
+    @GetMapping("/")
     public List<Servico> getAllServicos() {
         return servicoRepository.findAll();
     }
