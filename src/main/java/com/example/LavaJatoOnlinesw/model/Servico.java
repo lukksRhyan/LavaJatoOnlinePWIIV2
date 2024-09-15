@@ -15,10 +15,12 @@ public class Servico {
     private Long Id;
     private String descricao ;
     private double preco;
-	public Servico(String descricao, double preco) {
+	private Integer duracao;
+	public Servico(String descricao, double preco, Integer duracao) {
 		super();
 		this.descricao = descricao;
 		this.preco = preco;
+		this.duracao = duracao;
 	}
 
 	public Servico() {

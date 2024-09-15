@@ -19,10 +19,10 @@ public class ServicoController {
         return servicoRepository.findAll();
     }
 
-    @PostMapping
-    public Servico createServico(@RequestParam String descricao, @RequestParam Double preco) {
+    @PostMapping("/novo")
+    public Servico createServico(@RequestParam String descricao, @RequestParam Double preco, @RequestParam Integer duracao) {
 
-        return servicoRepository.save(new Servico());
+        return servicoRepository.save(new Servico(descricao,preco,duracao));
     }
 
     @GetMapping("/{id}")

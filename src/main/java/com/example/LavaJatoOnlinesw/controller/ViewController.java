@@ -3,6 +3,7 @@ package com.example.LavaJatoOnlinesw.controller;
 import com.example.LavaJatoOnlinesw.model.Usuario;
 
 import com.example.LavaJatoOnlinesw.repository.ClienteRepository;
+import com.example.LavaJatoOnlinesw.repository.ServicoRepository;
 import com.example.LavaJatoOnlinesw.repository.UsuarioRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class ViewController {
 
     @Autowired
     private ClienteRepository clienteRepository;
+
+    @Autowired
+    private ServicoRepository servicoRepository;
 
     @GetMapping("/login")
     public String index(HttpServletRequest request, Model model) {
@@ -93,7 +97,7 @@ public class ViewController {
 
         model.addAttribute("usuarioLogado", nomeUsuario);
 
-        model.addAttribute("clientes", clienteRepository.findAll());
+        carregarDados(model);
 
         response.addCookie(cookie);
     }
@@ -110,8 +114,9 @@ public class ViewController {
         return  false;
     }
 
-    //Todo: Pagina Cliente
-
-    //Todo: Agendamento
+    private void carregarDados(Model model){
+        model.addAttribute("clientes", clienteRepository.findAll());
+        model.addAttribute("servicos", servicoRepository.findAll());
+    }
 
 }

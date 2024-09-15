@@ -20,16 +20,22 @@ public class Agendamento {
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 
+
+	@ManyToOne
+	@JoinColumn(name = "carro_id")
+	private Carro carro;
+
     @ManyToOne
     private Servico servico;
 
     
     
-	public Agendamento(Long id, LocalDateTime dataHora, /*trocar por id*/ Cliente cliente, /*trocar por id*/ Servico servico) {
+	public Agendamento(Long id, LocalDateTime dataHora,  Cliente cliente, Carro carro ,Servico servico) {
 		super();
 		this.Id = id;
 		this.dataHora = dataHora;
 		this.cliente = cliente;/*trocar por id*/
+		this.carro = carro;
 		this.servico = servico;/*trocar por id*/
 	}
 

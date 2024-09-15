@@ -2,6 +2,7 @@
 <html  xmlns:th="http://thymeleaf.org" >
 <head>
     <title>Minha Primeira Página</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
@@ -63,6 +64,16 @@
             <option value="" disabled selected>Selecione um carro</option>
         </select>
 
+        <input type="datetime-local" name="datahora">
+
+        <label for="servicos">Serviços:</label>
+        <select id="servicos" name="servicos" multiple required>
+            <option value="" >Selecione os serviços</option>
+            <th:block th:each="servico : ${servicos}">
+                <option th:value="${servico.id}" th:text="${servico.descricao + ' - R$' + servico.preco}"></option>
+            </th:block>
+        </select>
+
         <button type="submit">Agendar</button>
     </form>
 
@@ -89,6 +100,24 @@
         <input type="submit" value="Enviar">
     </form>
 
+    <h1>Cadastro de Serviço</h1>
+
+    <form action="#" th:action="@{/servicos/novo}" method="post">
+        <label for="descricao">Descrição:</label>
+        <input type="text" id="descricao" name="descricao" required>
+        <br><br>
+
+        <label for="preco">Preço:</label>
+        <input type="number" id="preco" name="preco" step="0.01" required>
+        <br><br>
+
+        <label for="duracao">Duração (em minutos):</label>
+        <input type="number" id="duracao" name="duracao" required>
+        <br><br>
+
+        <button type="submit">Cadastrar Serviço</button>
+    </form>
+
     <form action="logout" method="post">
         <input type="submit" value="Sair">
     </form>
@@ -98,7 +127,7 @@
                 var clienteId = $(this).val();
                 if (clienteId) {
                     $.ajax({
-                        url: '/api/carros',
+                        url: '/carros/cliente/' + clienteId,
                         method: 'GET',
                         success: function(data) {
                             var $carroSelect = $('#carro');
