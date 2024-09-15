@@ -1,13 +1,16 @@
 package com.example.LavaJatoOnlinesw.controller;
 
 import com.example.LavaJatoOnlinesw.model.Agendamento;
+import com.example.LavaJatoOnlinesw.model.Carro;
 import com.example.LavaJatoOnlinesw.model.Cliente;
+import com.example.LavaJatoOnlinesw.model.Servico;
 import com.example.LavaJatoOnlinesw.repository.AgendamentoRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.Cookie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -23,13 +26,16 @@ public class AgendamentoController {
     }
 
     @PostMapping("/novo")
-    public Agendamento createAgendamento(@RequestBody Agendamento agendamento) {
-        return agendamentoRepository.save(agendamento);
+    public Agendamento createAgendamento(@RequestParam LocalDateTime datahora,
+                                         @RequestParam Cliente cliente,
+                                         @RequestParam Carro carro,
+                                         @RequestParam List<Servico> servicos) {
+        return agendamentoRepository.save(new Agendamento(datahora, cliente, carro, servicos));
     }
 
     @GetMapping("/cliente/{clienteid}")
     public List<Agendamento> getAllByCliente(Cliente cliente) {
-        return agendamentoRepository.findAllByCliente(cliente);
+        return agendamentoRepository.findAllByClienteId(cliente.getId());
     }
 
     @GetMapping("/{id}")
@@ -41,8 +47,8 @@ public class AgendamentoController {
     public Agendamento updateAgendamento(@PathVariable Long id, @RequestBody Agendamento agendamentoDetails) {
         Agendamento agendamento = agendamentoRepository.findById(id).orElseThrow(() -> new RuntimeException("Agendamento não encontrado"));
         agendamento.setDataHora(agendamentoDetails.getDataHora());
-        agendamento.setCliente(agendamentoDetails.getCliente());
-        agendamento.setServico(agendamentoDetails.getServico());
+        agendamento.setClienteId(agendamentoDetails.getClienteId());
+        agendamento.setServicos(agendamentoDetails.getServicos());
         return agendamentoRepository.save(agendamento);
     }
 

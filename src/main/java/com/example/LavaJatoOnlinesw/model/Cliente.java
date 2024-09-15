@@ -17,7 +17,7 @@ public class Cliente {
 	private String telefone;
 	private String email;
 
-	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "clienteId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Agendamento> agendamentos;
 
 	@OneToMany(mappedBy = "proprietarioId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
