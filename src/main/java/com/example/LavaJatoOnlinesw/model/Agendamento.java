@@ -36,22 +36,22 @@ public class Agendamento {
 			joinColumns = @JoinColumn(name = "agendamento_id"),
 			inverseJoinColumns = @JoinColumn(name = "servico_id")
 	)
-	private List<Servico> servicos;
+	private List<Operacao> operacoes;
     
     
-	public Agendamento( LocalDateTime dataHora,  Cliente cliente, Carro carro ,List<Servico> servicos) {
+	public Agendamento( LocalDateTime dataHora,  Cliente cliente, Carro carro ,List<Operacao> operacoes) {
 		super();
 		this.dataHora = dataHora;
 		this.clienteId = cliente.getId();/*trocar por id*/
 		this.carro = carro;
-		this.servicos = servicos;/*trocar por id*/
+		this.operacoes = operacoes;/*trocar por id*/
 
 		Integer subtotalDuracao = 0;
 		Double subtotalValor = 0.0;
 
-		for(Servico servico: servicos){
-			subtotalDuracao += servico.getDuracao();
-			subtotalValor += servico.getPreco();
+		for(Operacao operacao : operacoes){
+			subtotalDuracao += operacao.getDuracao();
+			subtotalValor += operacao.getPreco();
 		}
 		this.duracaoTotal = subtotalDuracao;
 		this.valorTotal = subtotalValor;

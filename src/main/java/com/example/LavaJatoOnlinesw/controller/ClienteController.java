@@ -1,11 +1,10 @@
 package com.example.LavaJatoOnlinesw.controller;
 
-import com.example.LavaJatoOnlinesw.model.Cliente;
-import com.example.LavaJatoOnlinesw.repository.CarroRepository;
-import com.example.LavaJatoOnlinesw.repository.ClienteRepository;
-
+import com.example.LavaJatoOnlinesw.DTO.ClienteDTO;
+import com.example.LavaJatoOnlinesw.Service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,51 +14,39 @@ import java.util.List;
 public class ClienteController {
 
     @Autowired
-    private ClienteRepository clienteRepository;
+    private ClienteService clienteService;
 
-    @Autowired
-    private CarroRepository carroRepository;
-
+    // Listar todos os clientes
     @GetMapping
-    public List<Cliente> getAllClientes() {
-        return clienteRepository.findAll();
+    public List<ClienteDTO> findAll() {
+        return clienteService.findAll();
     }
 
-
-    @PostMapping("/novo")
-    public Cliente createCliente(  @RequestParam("nome") String nome,
-                                   @RequestParam("email") String email,
-                                   @RequestParam("telefone") String telefone) {
-
-        return clienteRepository.save(new Cliente(nome,telefone,email));
-    }
-
+    // Encontrar cliente pelo ID
     @GetMapping("/{id}")
-    public Cliente getCliente(@PathVariable Long id, Model model) {
-        return clienteRepository.findById(id).
-                orElseThrow(()-> new RuntimeException("Cliente não encontrado"));
+    public ResponseEntity<ClienteDTO> findById(@PathVariable Long id) {
+        ClienteDTO clienteDTO = clienteService.findById(id);
+        return ResponseEntity.ok(clienteDTO);
     }
 
-    @PostMapping("/{id}")
-    public String paginaCliente(@PathVariable Long id, Model model) {
-        Cliente cliente = clienteRepository.findById(id).
-                orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
-        model.addAttribute("cliente",cliente);
-        return "cliente.html";
+    // Criar um novo cliente
+    @PostMapping
+    public ResponseEntity<ClienteDTO> create(@RequestBody ClienteDTO clienteDTO) {
+        ClienteDTO novoCliente = clienteService.create(clienteDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novoCliente);
     }
 
-    @PutMapping(value = "/{id}")
-    public Cliente updateCliente(@PathVariable Long id, @RequestBody Cliente clienteDetails) {
-        Cliente cliente = clienteRepository.findById(id).orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
-        cliente.setNome(clienteDetails.getNome());
-        cliente.setTelefone(clienteDetails.getTelefone());
-        cliente.setEmail(clienteDetails.getEmail());
-        return clienteRepository.save(cliente);
+    // Atualizar um cliente existente
+    @PutMapping("/{id}")
+    public ResponseEntity<ClienteDTO> update(@PathVariable Long id, @RequestBody ClienteDTO clienteDTO) {
+        ClienteDTO clienteAtualizado = clienteService.update(id, clienteDTO);
+        return ResponseEntity.ok(clienteAtualizado);
     }
 
+    // Deletar um cliente
     @DeleteMapping("/{id}")
-    public void deleteCliente(@PathVariable Long id) {
-        Cliente cliente = clienteRepository.findById(id).orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
-        clienteRepository.delete(cliente);
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        clienteService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

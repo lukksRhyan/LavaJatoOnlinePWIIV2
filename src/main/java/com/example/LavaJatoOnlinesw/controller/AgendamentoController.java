@@ -1,13 +1,11 @@
 package com.example.LavaJatoOnlinesw.controller;
 
+import com.example.LavaJatoOnlinesw.DTO.AgendamentoDTO;
+import com.example.LavaJatoOnlinesw.Service.AgendamentoService;
 import com.example.LavaJatoOnlinesw.model.Agendamento;
 import com.example.LavaJatoOnlinesw.model.Carro;
 import com.example.LavaJatoOnlinesw.model.Cliente;
-import com.example.LavaJatoOnlinesw.model.Servico;
-import com.example.LavaJatoOnlinesw.repository.AgendamentoRepository;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.Cookie;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.LavaJatoOnlinesw.model.Operacao;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -17,44 +15,44 @@ import java.util.List;
 @RequestMapping("/agendamentos")
 public class AgendamentoController {
 
-    @Autowired
-    private AgendamentoRepository agendamentoRepository;
+
+    AgendamentoService agendamentoService;
 
     @GetMapping
-    public List<Agendamento> getAllAgendamentos() {
-        return agendamentoRepository.findAll();
+    public List<AgendamentoDTO> getAllAgendamentos() {
+        return agendamentoService.findAll();
     }
 
     @PostMapping("/novo")
-    public Agendamento createAgendamento(@RequestParam LocalDateTime datahora,
+    public AgendamentoDTO createAgendamento(@RequestParam LocalDateTime datahora,
                                          @RequestParam Cliente cliente,
                                          @RequestParam Carro carro,
-                                         @RequestParam List<Servico> servicos) {
-        return agendamentoRepository.save(new Agendamento(datahora, cliente, carro, servicos));
+                                         @RequestParam List<Operacao> operacoes) {
+        return agendamentoService.create(new AgendamentoDTO(datahora,cliente.getId(),carro.getId(), operacoes));
     }
 
     @GetMapping("/cliente/{clienteid}")
-    public List<Agendamento> getAllByCliente(Cliente cliente) {
-        return agendamentoRepository.findAllByClienteId(cliente.getId());
+    public List<AgendamentoDTO> getAllByCliente(Long clienteId) {
+        return agendamentoService.findAllByClienteId(clienteId);
     }
 
     @GetMapping("/{id}")
-    public Agendamento getAgendamentoById(@PathVariable Long id) {
-        return agendamentoRepository.findById(id).orElseThrow(() -> new RuntimeException("Agendamento não encontrado"));
+    public AgendamentoDTO getAgendamentoById(@PathVariable Long id) {
+        return agendamentoService.findById(id);
     }
 
     @PutMapping("/{id}")
-    public Agendamento updateAgendamento(@PathVariable Long id, @RequestBody Agendamento agendamentoDetails) {
-        Agendamento agendamento = agendamentoRepository.findById(id).orElseThrow(() -> new RuntimeException("Agendamento não encontrado"));
-        agendamento.setDataHora(agendamentoDetails.getDataHora());
-        agendamento.setClienteId(agendamentoDetails.getClienteId());
-        agendamento.setServicos(agendamentoDetails.getServicos());
-        return agendamentoRepository.save(agendamento);
+    public AgendamentoDTO updateAgendamento(@PathVariable Long id, @RequestBody Agendamento agendamentoDetails) {
+        AgendamentoDTO agendamentoDTO = agendamentoService.findById(id);
+        agendamentoDTO.setDataHora(agendamentoDetails.getDataHora());
+        agendamentoDTO.setClienteId(agendamentoDetails.getClienteId());
+        agendamentoDTO.setOperacoes(agendamentoDetails.getOperacoes());
+        return agendamentoService.create(agendamentoDTO);
     }
 
     @DeleteMapping("/{id}")
     public void deleteAgendamento(@PathVariable Long id) {
-        Agendamento agendamento = agendamentoRepository.findById(id).orElseThrow(() -> new RuntimeException("Agendamento não encontrado"));
-        agendamentoRepository.delete(agendamento);
+        AgendamentoDTO agendamentoDTO = agendamentoService.findById(id);
+        agendamentoService.delete(agendamentoDTO.getId());
     }
 }
